@@ -4,7 +4,7 @@ import QtQuick.Controls 2.5
 ApplicationWindow {
     id: applicationWindow
 
-    property bool isConnected: true
+    property bool isConnected: rover.isConnected
     visible: true
     minimumWidth: column.width * 1.2
     minimumHeight: column.height * 2.0
@@ -25,6 +25,9 @@ ApplicationWindow {
                 enabled: startStop.highlighted
                 highlighted: true
                 icon.source: "qrc:/media/icons/keyboard_arrow_up-black-24dp.svg"
+
+                onPressed: rover.goForward()
+                onReleased: rover.stop()
             }
         }
 
@@ -39,6 +42,9 @@ ApplicationWindow {
                 enabled: startStop.highlighted
                 highlighted: true
                 icon.source: "qrc:/media/icons/keyboard_arrow_left-black-24dp.svg"
+
+                onPressed: rover.goLeft()
+                onReleased: rover.stop()
             }
 
             Button
@@ -58,6 +64,9 @@ ApplicationWindow {
                 enabled: startStop.highlighted
                 highlighted: true
                 icon.source: "qrc:/media/icons/keyboard_arrow_right-black-24dp.svg"
+
+                onPressed: rover.goRight()
+                onReleased: rover.stop()
             }
         }
 
@@ -71,6 +80,9 @@ ApplicationWindow {
                 enabled: startStop.highlighted
                 highlighted: true
                 icon.source: "qrc:/media/icons/keyboard_arrow_down-black-24dp.svg"
+
+                onPressed: rover.goBackward()
+                onReleased: rover.stop()
             }
         }
 
@@ -82,6 +94,8 @@ ApplicationWindow {
 
             from: 0; to: 100; stepSize: 0.1
             value: to * 0.2
+
+            onValueChanged: rover.controlLevel = value
 
             ToolTip
             {
